@@ -1,0 +1,86 @@
+body {
+  background-color: #fff8e1; }
+
+.label-colored, .i-colored, .input-field label, .container a {
+  color: orange !important;
+  /* avoid of teal color during selection */ }
+
+.button-colored, .top-nav-wrapper, .divider {
+  background-color: orange !important; }
+
+.validate {
+  border-color: orange !important; }
+
+.container a {
+  font-style: italic;
+  border-bottom: 1px solid orange; }
+
+.divider-wide {
+  margin: 30px; }
+
+.modal-content > :not(h4) {
+  text-align: left !important; }
+
+.card-image a > span {
+  text-shadow: 0.5px 0.5px #555555; }
+
+.card-title {
+  text-align: left !important; }
+
+.card-action {
+  text-align: right !important; }
+
+.form-header {
+  margin-top: 50px !important; }
+
+.file-span {
+  height: 40px !important;
+  margin-top: 0.1rem;
+  line-height: 30px !important;
+  width: 11rem; }
+
+.file-span-i {
+  position: relative;
+  right: -15pt;
+  top: 2pt; }
+
+.input-field {
+  margin-top: 2rem; }
+  .input-field label {
+    width: 100%;
+    /* avoid of new lines in error messages */ }
+  .input-field input {
+    -webkit-box-shadow: 0 0 0 100px white inset !important;
+    border-bottom: solid orange 1px;
+    color: black; }
+
+[type="checkbox"] + span:not(.lever):before,
+[type="checkbox"]:not(.filled-in) + span:not(.lever):after {
+  border: 2px solid orange; }
+
+[type="checkbox"]:checked + span:not(.lever):before {
+  border-right: 2px solid green;
+  border-bottom: 2px solid green; }
+
+.carousel .carousel-item {
+  width: 300pt;
+  height: 200pt;
+  position: absolute;
+  top: 0;
+  left: 0;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); }
+
+.carousel .carousel-item > img {
+  height: 200pt; }
+
+.carousel .carousel-item > span {
+  text-shadow: 0.5px 0.5px #555555;
+  color: white;
+  position: relative;
+  font-style: italic;
+  bottom: 60pt;
+  font-size: 25px;
+  font-weight: 350; }
+
+.carousel-item {
+  text-align: left; }

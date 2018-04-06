@@ -1,0 +1,150 @@
+// Color
+@import "components/color-variables";
+
+$mainTextColor: orange;
+$mainBgColor: #{map-get($amber, 'lighten-5')};
+$checkColor: green;
+$shadowColor: #555555;
+$inputTextColor: black;
+
+
+// Mixins
+
+@mixin text-shadow {
+    text-shadow: 0.5px 0.5px $shadowColor;
+}
+
+
+// Colors
+
+body {
+    background-color: $mainBgColor;
+}
+
+.label-colored, .i-colored, .input-field label, .container a {
+    color: $mainTextColor !important; /* avoid of teal color during selection */
+}
+
+.button-colored, .top-nav-wrapper, .divider {
+    background-color: $mainTextColor !important;
+}
+
+.validate {
+    border-color: $mainTextColor !important;
+}
+
+
+// Misc
+
+.container a {
+    font-style: italic;
+    border-bottom: 1px solid $mainTextColor;
+}
+
+.divider-wide {
+    margin: 30px;
+}
+
+.modal-content > :not(h4) {
+    text-align: left !important;
+}
+
+
+// Dafault cards
+
+.card-image a > span {
+    @include text-shadow;
+}
+
+.card-title {
+    text-align: left !important;
+}
+
+.card-action {
+    text-align: right !important;
+}
+
+
+// Form
+
+.form-header {
+    margin-top: 50px !important;
+}
+
+
+// Form: File input
+
+.file-span {
+    height: 40px !important;
+    margin-top: 0.1rem;
+    line-height:30px !important;
+    width: 11rem;
+}
+
+.file-span-i {
+    position: relative;
+    right: -15pt;
+    top: 2pt;
+}
+
+
+// Form: input
+
+.input-field {
+    label {
+        width: 100%;  /* avoid of new lines in error messages */
+    }
+
+    input {
+        -webkit-box-shadow: 0 0 0 100px white inset !important;
+        border-bottom: solid $mainTextColor 1px;
+        color: $inputTextColor;
+    }
+
+    margin-top: 2rem;
+}
+
+
+// Form: checkbox
+
+[type="checkbox"] + span:not(.lever):before,
+[type="checkbox"]:not(.filled-in) + span:not(.lever):after {
+  border: 2px solid $mainTextColor;
+}
+
+[type="checkbox"]:checked + span:not(.lever):before {
+  border-right: 2px solid $checkColor;
+  border-bottom: 2px solid $checkColor;
+}
+
+
+// Carousel
+
+.carousel {
+    .carousel-item {
+        width: 300pt;
+        height: 200pt;
+        position: absolute;
+        top: 0;
+        left: 0;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+
+    .carousel-item > img {
+        height: 200pt;
+    }
+
+    .carousel-item > span {
+        @include text-shadow;
+        color: white;
+        position: relative;
+        font-style: italic;
+        bottom: 60pt;
+        font-size: 25px;
+        font-weight: 350;
+    }
+}
+
+.carousel-item {
+    text-align: left;
+}
