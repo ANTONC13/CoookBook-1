@@ -19,7 +19,8 @@ class UserController extends AuthController
      */
     public function index()
     {
-        if(! Auth::user()->super ) { return redirect('/');
+        if (! Auth::user()->super) {
+            return redirect('/');
         }
 
         $list = User::orderBy('name')->get();
@@ -40,9 +41,10 @@ class UserController extends AuthController
      *
      * @return \Illuminate\Http\Response
      */
-    public function create() 
+    public function create()
     {
-        if(! Auth::user()->super ) { return redirect('/');
+        if (! Auth::user()->super) {
+            return redirect('/');
         }
 
         return view('usercreate');
@@ -54,18 +56,20 @@ class UserController extends AuthController
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store( Request $request )
+    public function store(Request $request)
     {
-        if(! Auth::user()->super ) { return redirect('/');
+        if (! Auth::user()->super) {
+            return redirect('/');
         }
 
         $this->validate(
-            $request, [
-            'name'             => 'required|min:3',
-            'email'            => 'required|min:10',
-            'img_file_name'    => 'required|image:jpg,png,jpeg|max:5000',
-            'password'         => 'required|confirmed|min:6',
-             ] 
+            $request,
+            [
+                'name'             => 'required|min:3',
+                'email'            => 'required|min:10',
+                'img_file_name'    => 'required|image:jpg,png,jpeg|max:5000',
+                'password'         => 'required|confirmed|min:6',
+            ]
         );
 
         $user = new User;
@@ -86,9 +90,10 @@ class UserController extends AuthController
      * @param  \App\User $user
      * @return \Illuminate\Http\Response
      */
-    public function edit( User $user )
+    public function edit(User $user)
     {
-        if(! Auth::user()->super ) { return redirect('/');
+        if (! Auth::user()->super) {
+            return redirect('/');
         }
 
         return view('usercreate', [ 'user' => $user ]);
@@ -101,18 +106,20 @@ class UserController extends AuthController
      * @param  \App\User                $user
      * @return \Illuminate\Http\Response
      */
-    public function update( User $user, Request $request )
+    public function update(User $user, Request $request)
     {
-        if(! Auth::user()->super ) { return redirect('/');
+        if (! Auth::user()->super) {
+            return redirect('/');
         }
 
         $this->validate(
-            $request, [
-            'name'           => 'required|min:3',
-            'email'          => 'required|min:10',
-            ( $request->input('password') ? ['password' => 'required|min:10'] : [] ),
-            'img_file_name'  => 'image:jpg,png,jpeg|max:5000',
-             ] 
+            $request,
+            [
+                'name'           => 'required|min:3',
+                'email'          => 'required|min:10',
+                ( $request->input('password') ? ['password' => 'required|min:10'] : [] ),
+                'img_file_name'  => 'image:jpg,png,jpeg|max:5000',
+            ]
         );
 
         $user->name          = $request->input('name');
@@ -120,11 +127,11 @@ class UserController extends AuthController
         $user->description   = $request->input('description') ?? '';
         $user->super         = $request->input('super');
 
-        if ($request->input('password') ) {
+        if ($request->input('password')) {
             $user->password = bcrypt($request->input('password'));
         }
 
-        if ($request->hasFile('img_file_name') ) {
+        if ($request->hasFile('img_file_name')) {
             Storage::delete($user->img_file_name);
             $user->img_file_name = $request->file('img_file_name')->store('public/uploaded_imgs');
         }
@@ -140,9 +147,10 @@ class UserController extends AuthController
      * @param  \App\User $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy( User $user ) 
+    public function destroy(User $user)
     {
-        if(! Auth::user()->super ) { return redirect('/');
+        if (! Auth::user()->super) {
+            return redirect('/');
         }
 
         // TODO: Отвызать рецепты в аноним или удалить ???

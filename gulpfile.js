@@ -63,11 +63,12 @@ gulp.task('phpcbf', function () {
   .pipe(gulp.dest('src'));
 });
 
-// var gutil = require( 'gulp-util' );
-// var ftp = require( 'vinyl-ftp' );
-// app public
-// /var/www/SIA2/public/vendor/unisharp/laravel-ckeditor - МИНИМИЗИРОВАТЬ!!!
 /*
+var gutil = require( 'gulp-util' );
+var ftp = require( 'vinyl-ftp' );
+app public
+/var/www/SIA2/public/vendor/unisharp/laravel-ckeditor - МИНИМИЗИРОВАТЬ!!!
+
 gulp.task( 'deploy', function () {
 
     var conn = ftp.create( {

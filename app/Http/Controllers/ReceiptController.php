@@ -17,7 +17,7 @@ class ReceiptController extends AuthController
      *
      * @return \Illuminate\Http\Response
      */
-    public function index( Group $group )
+    public function index(Group $group)
     {
         $list = Auth::user()->super
             ? Receipt::with('user')->orderBy('name')->get()
@@ -38,7 +38,7 @@ class ReceiptController extends AuthController
      *
      * @return \Illuminate\Http\Response
      */
-    public function create() 
+    public function create()
     {
 
         return view(
@@ -55,17 +55,24 @@ class ReceiptController extends AuthController
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store( Request $request ) 
+    public function store(Request $request)
     {
 
-        $request->merge(array( 'description' => Purifier::clean($request->input('description')) ));
+        $request->merge(
+            array(
+                'description' => Purifier::clean(
+                    $request->input('description')
+                )
+            )
+        );
 
         $this->validate(
-            $request, [
-            'name'           => 'required|min:3',
-            'img_file_name'  => 'required|image:jpg,png,jpeg|max:5000',
-            'description'    => 'required|min:10',
-             ] 
+            $request,
+            [
+                'name'           => 'required|min:3',
+                'img_file_name'  => 'required|image:jpg,png,jpeg|max:5000',
+                'description'    => 'required|min:10',
+            ]
         );
 
         $receipt = new Receipt;
@@ -88,10 +95,11 @@ class ReceiptController extends AuthController
      * @param  \App\Receipt $receipt
      * @return \Illuminate\Http\Response
      */
-    public function edit( Receipt $receipt ) 
+    public function edit(Receipt $receipt)
     {
 
-        if ($receipt->user_id != Auth::user()->id ) { return redirect('/');
+        if ($receipt->user_id != Auth::user()->id) {
+            return redirect('/');
         }
 
         return view(
@@ -111,26 +119,34 @@ class ReceiptController extends AuthController
      * @param  \App\Receipt             $receipt
      * @return \Illuminate\Http\Response
      */
-    public function update( Request $request, Receipt $receipt ) 
+    public function update(Request $request, Receipt $receipt)
     {
 
-        if ($receipt->user_id != Auth::user()->id ) { return redirect('/');
+        if ($receipt->user_id != Auth::user()->id) {
+            return redirect('/');
         }
 
-        $request->merge(array( 'description' => Purifier::clean($request->input('description')) ));
+        $request->merge(
+            array(
+                'description' => Purifier::clean(
+                    $request->input('description')
+                )
+            )
+        );
 
         $this->validate(
-            $request, [
-            'name'           => 'required|min:3',
-            'description'    => 'required|min:10',
-            'img_file_name'  => 'image:jpg,png,jpeg|max:5000',
-             ] 
+            $request,
+            [
+                'name'           => 'required|min:3',
+                'description'    => 'required|min:10',
+                'img_file_name'  => 'image:jpg,png,jpeg|max:5000',
+            ]
         );
 
         $receipt->name          = $request->input('name');
         $receipt->description   = $request->input('description');
 
-        if ($request->hasFile('img_file_name') ) {
+        if ($request->hasFile('img_file_name')) {
             Storage::delete($receipt->img_file_name);
             $receipt->img_file_name = $request->file('img_file_name')->store('public/uploaded_imgs');
         }
@@ -149,10 +165,11 @@ class ReceiptController extends AuthController
      * @param  \App\Receipt $receipt
      * @return \Illuminate\Http\Response
      */
-    public function destroy( Receipt $receipt ) 
+    public function destroy(Receipt $receipt)
     {
 
-        if ($receipt->user_id != Auth::user()->id ) { return redirect('/');
+        if ($receipt->user_id != Auth::user()->id) {
+            return redirect('/');
         }
 
         Storage::delete($receipt->img_file_name);

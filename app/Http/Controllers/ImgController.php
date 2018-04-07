@@ -12,18 +12,21 @@ use Illuminate\Routing\Controller as BaseController;
 
 class ImgController extends Controller
 {
-    public function img( Request $request, $fname ) 
+    public function img(Request $request, $fname)
     {
 
         $file = storage_path() . '/app/public/uploaded_imgs/' . $fname;
 
-        if(!File::exists($file) ) { App::abort(404);
+        if (!File::exists($file)) {
+            App::abort(404);
         }
 
         $img = Image::make($file);
 
         $img->resize(
-            300, null, function ( $constraint ) {
+            300,
+            null,
+            function ($constraint) {
                 $constraint->aspectRatio();
             }
         );
@@ -31,12 +34,13 @@ class ImgController extends Controller
         return $img->response('jpg');
     }
 
-    public function bimg( Request $request, $fname ) 
+    public function bimg(Request $request, $fname)
     {
 
         $file = storage_path() . '/app/public/uploaded_imgs/' . $fname;
 
-        if(!File::exists($file) ) { App::abort(404);
+        if (!File::exists($file)) {
+            App::abort(404);
         }
 
         $img = Image::make($file);
