@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 
-class GroupController extends AuthController
+class GroupController extends Controller
 {
 
     /**

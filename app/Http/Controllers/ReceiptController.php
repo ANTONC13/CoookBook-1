@@ -9,7 +9,7 @@ use App\Receipt;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
-class ReceiptController extends AuthController
+class ReceiptController extends Controller
 {
 
     /**

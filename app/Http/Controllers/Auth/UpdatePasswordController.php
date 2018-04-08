@@ -4,10 +4,10 @@ namespace App\Http\Controllers\Auth;
 
 use Auth;
 use Illuminate\Http\Request;
-use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 
-class UpdatePasswordController extends AuthController
+class UpdatePasswordController extends Controller
 {
     /*
     |--------------------------------------------------------------------------

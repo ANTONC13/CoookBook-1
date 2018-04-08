@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 
-class UserController extends AuthController
+class UserController extends Controller
 {
 
     /**
@@ -19,10 +19,6 @@ class UserController extends AuthController
      */
     public function index()
     {
-        if (! Auth::user()->super) {
-            return redirect('/');
-        }
-
         $list = User::orderBy('name')->get();
 
         return view(
@@ -43,10 +39,6 @@ class UserController extends AuthController
      */
     public function create()
     {
-        if (! Auth::user()->super) {
-            return redirect('/');
-        }
-
         return view('usercreate');
     }
 
@@ -58,10 +50,6 @@ class UserController extends AuthController
      */
     public function store(Request $request)
     {
-        if (! Auth::user()->super) {
-            return redirect('/');
-        }
-
         $this->validate(
             $request,
             [
@@ -92,10 +80,6 @@ class UserController extends AuthController
      */
     public function edit(User $user)
     {
-        if (! Auth::user()->super) {
-            return redirect('/');
-        }
-
         return view('usercreate', [ 'user' => $user ]);
     }
     // $2y$10$JKd3miJY7Qs7YEKFt1Jl.uIta1IbmLoGxob4ELFb3Y2VkPTzmfd8e
@@ -108,10 +92,6 @@ class UserController extends AuthController
      */
     public function update(User $user, Request $request)
     {
-        if (! Auth::user()->super) {
-            return redirect('/');
-        }
-
         $this->validate(
             $request,
             [
@@ -149,10 +129,6 @@ class UserController extends AuthController
      */
     public function destroy(User $user)
     {
-        if (! Auth::user()->super) {
-            return redirect('/');
-        }
-
         // TODO: Отвызать рецепты в аноним или удалить ???
 
         Storage::delete($user->img_file_name);
