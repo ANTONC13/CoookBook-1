@@ -17,7 +17,7 @@ class AuthRoot
     public function handle($request, Closure $next)
     {
         if (! Auth::user()->super) {
-            return redirect('/');
+            return redirect(route('welcome'));
         }
 
 

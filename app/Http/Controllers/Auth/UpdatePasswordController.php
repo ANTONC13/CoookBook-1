@@ -27,14 +27,14 @@ class UpdatePasswordController extends Controller
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
      */
 
-    public function update( Request $request ) 
+    public function update( Request $request )
     {
 
         $this->validate(
             $request, [
             'password'         => 'required|confirmed|min:6',
             'current_password' => 'required|min:6',
-             ] 
+             ]
         );
 
         $user = Auth::user();
@@ -51,10 +51,10 @@ class UpdatePasswordController extends Controller
 
         Auth::guard()->logout();
 
-        return redirect('/');
+        return redirect(route('welcome'));
     }
 
-    public function showUpdateForm( Request $request ) 
+    public function showUpdateForm( Request $request )
     {
         return view('auth.passwords.update');
     }

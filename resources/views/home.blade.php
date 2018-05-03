@@ -32,7 +32,7 @@
                     'size'        => 'small',
                     'hrefs'       => [
                         [
-                            'url'    => '/',
+                            'url'    => route('welcome'),
                             'name'   => 'Cookbook',
                             'icon'   => 'collections',
                         ],

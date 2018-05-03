@@ -20,7 +20,7 @@ class GroupController extends Controller
     public function index()
     {
         if (! Auth::user()->super) {
-            return redirect('/');
+            return redirect( route( 'welcome' ) );
         }
 
         $list = Group::orderBy('name')->get();
@@ -43,7 +43,7 @@ class GroupController extends Controller
     public function create()
     {
         if (! Auth::user()->super) {
-            return redirect('/');
+            return redirect(route('welcome'));
         }
 
         return view('groupcreate');
@@ -58,7 +58,7 @@ class GroupController extends Controller
     public function store(Request $request)
     {
         if (! Auth::user()->super) {
-            return redirect('/');
+            return redirect(route('welcome'));
         }
 
         $request->merge(array( 'description' => Purifier::clean($request->input('description'))));
@@ -79,7 +79,7 @@ class GroupController extends Controller
         $group->user_id       = Auth::user()->id;
         $group->save();
 
-        return redirect('/group')->with('success', 'Group added');
+        return redirect(route('group.index'))->with('success', 'Group added');
     }
 
     /**
@@ -91,7 +91,7 @@ class GroupController extends Controller
     public function edit(Group $group)
     {
         if (! Auth::user()->super) {
-            return redirect('/');
+            return redirect( route( 'welcome' ) );
         }
 
         return view('groupcreate', ['group' => $group]);
@@ -107,7 +107,7 @@ class GroupController extends Controller
     public function update(Group $group, Request $request)
     {
         if (! Auth::user()->super) {
-            return redirect('/');
+            return redirect(route('welcome'));
         }
 
         $request->merge(array( 'description' => Purifier::clean($request->input('description'))));
@@ -131,7 +131,7 @@ class GroupController extends Controller
 
         $group->save();
 
-        return redirect('/group')->with('success', 'Group changed');
+        return redirect(route('group.index'))->with('success', 'Group changed');
     }
 
     /**
@@ -143,7 +143,7 @@ class GroupController extends Controller
     public function destroy(Group $group)
     {
         if (! Auth::user()->super) {
-            return redirect('/');
+            return redirect( route( 'welcome' ) );
         }
 
         Storage::delete($group->img_file_name);
@@ -151,6 +151,6 @@ class GroupController extends Controller
         $group->receipts()->detach($group->id);
         $group->forceDelete();
 
-        return redirect('/group')->with('success', 'Group deleted');
+        return redirect(route('group.index'))->with('success', 'Group deleted');
     }
 }

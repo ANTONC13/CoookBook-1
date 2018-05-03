@@ -14,7 +14,7 @@
             'size'        => 'small',
             'hrefs'       => [
                 [
-                    'url'    => url( '/home' ),
+                    'url'    => route( 'home' ),
                     'name'   => 'Home',
                     'icon'   => 'home',
                 ],
@@ -31,7 +31,7 @@
             'size'        => 'small',
             'hrefs'       => [
                 [
-                    'url'    => url( '/' . $url_item . '/create' ),
+                    'url'    => route( $url_item . '.create' ),
                     'name'   => 'New',
                     'icon'   => 'create_new_folder',
                 ],
@@ -54,12 +54,12 @@
                 'icon'        => isset( $img_placeholder ) ? $img_placeholder : 'image',
                 'hrefs'       => [
                     [
-                        'url'     => url( '/' . $url_item . '/' . $item->id . '/edit' ),
+                        'url'     => route( "$url_item.edit", [ $item->id ] ),
                         'name'    => '',
                         'icon'    => 'edit',
                     ],
                     [
-                        'url'     => url( '/' . $url_item . '/' . $item->id . '/delete' ),
+                        'url'     => route( "$url_item.delete", [ $item->id ] ),
                         'name'    => '',
                         'icon'    => 'delete',
                         'header'  => 'Delete confirmation',

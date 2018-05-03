@@ -69,7 +69,7 @@ class UserController extends Controller
         $user->super         = $request->input('super') || 0;
         $user->save();
 
-        return redirect('/user')->with('success', 'User added');
+        return redirect(route('user.index'))->with('success', 'User added');
     }
 
     /**
@@ -118,7 +118,7 @@ class UserController extends Controller
 
         $user->save();
 
-        return redirect('/user')->with('success', 'User changed');
+        return redirect(route('user.index'))->with('success', 'User changed');
     }
 
     /**
@@ -135,6 +135,6 @@ class UserController extends Controller
 
         $user->forceDelete();
 
-        return redirect('/user')->with('success', 'User deleted');
+        return redirect(route('user.index'))->with('success', 'User deleted');
     }
 }
