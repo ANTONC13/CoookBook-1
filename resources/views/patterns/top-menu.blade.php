@@ -3,18 +3,11 @@
   <div class="nav-wrapper top-nav-wrapper">
     <a href="#!" class="brand-logo"><i class="material-icons large white-text">local_florist</i></a>
     <ul class="right hide-on-med-and-down">
-        <?php
-            $locale      = App::getLocale();
-            $locales     = preg_grep( '/[^.]/', scandir( resource_path() . '/lang' ) );
-            $locales_str = join( '|', $locales );
-            $url         = preg_replace( '/^('.$locales_str.')\/?/', '', Request::path() );
-            $url and $url = '/' .$url;
-        ?>
-        @foreach( $locales as $locale_name )
-            @if ( $locale_name != $locale )
-                <li><a href='/{{ $locale_name . $url }}'>{{ $locale_name }}</a></li>
+        @foreach( get_locales() as $locale )
+            @if ( $locale != get_locale() )
+                <li><a href='/{{ relocalize_url($locale) }}'>{{ $locale }}</a></li>
             @else
-                <li><a class="red-text" href='#'><b>{{ $locale_name }}</b></a></li>
+                <li><a class="red-text" href=''><b>{{ $locale }}</b></a></li>
             @endif
         @endforeach
       @guest

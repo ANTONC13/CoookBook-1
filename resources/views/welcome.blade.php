@@ -5,7 +5,7 @@
 <div class="carousel">
     @foreach( $groups as $group )
         <a class="carousel-item" href="#" onclick="reload_receipts_div({{ $group->id }})">
-            <img src="{{ url( '/bimg/' . basename( $group->img_file_name ) ) }}"/>
+            <img src="{{ route( 'bimg', basename( $group->img_file_name ) ) }}"/>
             <span class="card-title">{{ $group->name }}</span>
         </a>
     @endforeach

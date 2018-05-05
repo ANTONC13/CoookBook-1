@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 
-class GroupController extends AuthController
+class GroupController extends Controller
 {
 
     /**
@@ -20,7 +20,7 @@ class GroupController extends AuthController
     public function index()
     {
         if (! Auth::user()->super) {
-            return redirect('/');
+            return redirect(route('welcome'));
         }
 
         $list = Group::orderBy('name')->get();
@@ -43,7 +43,7 @@ class GroupController extends AuthController
     public function create()
     {
         if (! Auth::user()->super) {
-            return redirect('/');
+            return redirect(route('welcome'));
         }
 
         return view('groupcreate');
@@ -58,18 +58,18 @@ class GroupController extends AuthController
     public function store(Request $request)
     {
         if (! Auth::user()->super) {
-            return redirect('/');
+            return redirect(route('welcome'));
         }
 
-        $request->merge(array( 'description' => Purifier::clean($request->input('description')) ));
+        $request->merge(array( 'description' => Purifier::clean($request->input('description'))));
 
         $this->validate(
             $request,
             [
-            'name'           => 'required|min:3',
-            'img_file_name'  => 'required|image:jpg,png,jpeg|max:5000',
-            'description'    => 'required|min:10',
-             ]
+                'name'           => 'required|min:3',
+                'img_file_name'  => 'required|image:jpg,png,jpeg|max:5000',
+                'description'    => 'required|min:10',
+            ]
         );
 
         $group = new Group;
@@ -79,7 +79,7 @@ class GroupController extends AuthController
         $group->user_id       = Auth::user()->id;
         $group->save();
 
-        return redirect('/group')->with('success', 'Group added');
+        return redirect(route('group.index'))->with('success', 'Group added');
     }
 
     /**
@@ -91,10 +91,10 @@ class GroupController extends AuthController
     public function edit(Group $group)
     {
         if (! Auth::user()->super) {
-            return redirect('/');
+            return redirect(route('welcome'));
         }
 
-        return view('groupcreate', [ 'group' => $group ]);
+        return view('groupcreate', ['group' => $group]);
     }
 
     /**
@@ -107,18 +107,18 @@ class GroupController extends AuthController
     public function update(Group $group, Request $request)
     {
         if (! Auth::user()->super) {
-            return redirect('/');
+            return redirect(route('welcome'));
         }
 
-        $request->merge(array( 'description' => Purifier::clean($request->input('description')) ));
+        $request->merge(array( 'description' => Purifier::clean($request->input('description'))));
 
         $this->validate(
             $request,
             [
-            'name'           => 'required|min:3',
-            'description'    => 'required|min:10',
-            'img_file_name'  => 'image:jpg,png,jpeg|max:5000',
-             ]
+                'name'           => 'required|min:3',
+                'description'    => 'required|min:10',
+                'img_file_name'  => 'image:jpg,png,jpeg|max:5000',
+            ]
         );
 
         $group->name          = $request->input('name');
@@ -131,7 +131,7 @@ class GroupController extends AuthController
 
         $group->save();
 
-        return redirect('/group')->with('success', 'Group changed');
+        return redirect(route('group.index'))->with('success', 'Group changed');
     }
 
     /**
@@ -143,7 +143,7 @@ class GroupController extends AuthController
     public function destroy(Group $group)
     {
         if (! Auth::user()->super) {
-            return redirect('/');
+            return redirect(route('welcome'));
         }
 
         Storage::delete($group->img_file_name);
@@ -151,6 +151,6 @@ class GroupController extends AuthController
         $group->receipts()->detach($group->id);
         $group->forceDelete();
 
-        return redirect('/group')->with('success', 'Group deleted');
+        return redirect(route('group.index'))->with('success', 'Group deleted');
     }
 }

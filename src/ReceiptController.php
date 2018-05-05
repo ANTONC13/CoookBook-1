@@ -9,7 +9,7 @@ use App\Receipt;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
-class ReceiptController extends AuthController
+class ReceiptController extends Controller
 {
 
     /**
@@ -17,7 +17,7 @@ class ReceiptController extends AuthController
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Group $group)
+    public function index()
     {
         $list = Auth::user()->super
             ? Receipt::with('user')->orderBy('name')->get()
@@ -58,15 +58,21 @@ class ReceiptController extends AuthController
     public function store(Request $request)
     {
 
-        $request->merge(array( 'description' => Purifier::clean($request->input('description')) ));
+        $request->merge(
+            array(
+                'description' => Purifier::clean(
+                    $request->input('description')
+                )
+            )
+        );
 
         $this->validate(
             $request,
             [
-            'name'           => 'required|min:3',
-            'img_file_name'  => 'required|image:jpg,png,jpeg|max:5000',
-            'description'    => 'required|min:10',
-             ]
+                'name'           => 'required|min:3',
+                'img_file_name'  => 'required|image:jpg,png,jpeg|max:5000',
+                'description'    => 'required|min:10',
+            ]
         );
 
         $receipt = new Receipt;
@@ -80,7 +86,7 @@ class ReceiptController extends AuthController
         $group_id_keys = preg_filter('/^group_(\d+)$/', '$1', array_keys($request->input()));
         $receipt->groups()->sync($group_id_keys);
 
-        return redirect('/receipt')->with('success', 'Group added');
+        return redirect(route('receipt.index'))->with('success', 'Group added');
     }
 
     /**
@@ -93,7 +99,7 @@ class ReceiptController extends AuthController
     {
 
         if ($receipt->user_id != Auth::user()->id) {
-            return redirect('/');
+            return redirect(route('welcome'));
         }
 
         return view(
@@ -117,18 +123,24 @@ class ReceiptController extends AuthController
     {
 
         if ($receipt->user_id != Auth::user()->id) {
-            return redirect('/');
+            return redirect(route('welcome'));
         }
 
-        $request->merge(array( 'description' => Purifier::clean($request->input('description')) ));
+        $request->merge(
+            array(
+                'description' => Purifier::clean(
+                    $request->input('description')
+                )
+            )
+        );
 
         $this->validate(
             $request,
             [
-            'name'           => 'required|min:3',
-            'description'    => 'required|min:10',
-            'img_file_name'  => 'image:jpg,png,jpeg|max:5000',
-             ]
+                'name'           => 'required|min:3',
+                'description'    => 'required|min:10',
+                'img_file_name'  => 'image:jpg,png,jpeg|max:5000',
+            ]
         );
 
         $receipt->name          = $request->input('name');
@@ -144,7 +156,7 @@ class ReceiptController extends AuthController
 
         $receipt->groups()->sync($group_id_keys);
 
-        return redirect('/receipt')->with('success', 'Group changed');
+        return redirect(route('receipt.index'))->with('success', 'Group changed');
     }
 
     /**
@@ -157,7 +169,7 @@ class ReceiptController extends AuthController
     {
 
         if ($receipt->user_id != Auth::user()->id) {
-            return redirect('/');
+            return redirect(route('welcome'));
         }
 
         Storage::delete($receipt->img_file_name);
@@ -165,6 +177,6 @@ class ReceiptController extends AuthController
         $receipt->groups()->detach($receipt->id);
         $receipt->forceDelete();
 
-        return redirect('/receipt')->with('success', 'Receipt deleted');
+        return redirect(route('receipt.index'))->with('success', 'Receipt deleted');
     }
 }

@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 
-class UserController extends AuthController
+class UserController extends Controller
 {
 
     /**
@@ -19,10 +19,6 @@ class UserController extends AuthController
      */
     public function index()
     {
-        if (! Auth::user()->super) {
-            return redirect('/');
-        }
-
         $list = User::orderBy('name')->get();
 
         return view(
@@ -43,10 +39,6 @@ class UserController extends AuthController
      */
     public function create()
     {
-        if (! Auth::user()->super) {
-            return redirect('/');
-        }
-
         return view('usercreate');
     }
 
@@ -58,18 +50,14 @@ class UserController extends AuthController
      */
     public function store(Request $request)
     {
-        if (! Auth::user()->super) {
-            return redirect('/');
-        }
-
         $this->validate(
             $request,
             [
-            'name'             => 'required|min:3',
-            'email'            => 'required|min:10',
-            'img_file_name'    => 'required|image:jpg,png,jpeg|max:5000',
-            'password'         => 'required|confirmed|min:6',
-             ]
+                'name'             => 'required|min:3',
+                'email'            => 'required|min:10',
+                'img_file_name'    => 'required|image:jpg,png,jpeg|max:5000',
+                'password'         => 'required|confirmed|min:6',
+            ]
         );
 
         $user = new User;
@@ -81,7 +69,7 @@ class UserController extends AuthController
         $user->super         = $request->input('super') || 0;
         $user->save();
 
-        return redirect('/user')->with('success', 'User added');
+        return redirect(route('user.index'))->with('success', 'User added');
     }
 
     /**
@@ -92,10 +80,6 @@ class UserController extends AuthController
      */
     public function edit(User $user)
     {
-        if (! Auth::user()->super) {
-            return redirect('/');
-        }
-
         return view('usercreate', [ 'user' => $user ]);
     }
     // $2y$10$JKd3miJY7Qs7YEKFt1Jl.uIta1IbmLoGxob4ELFb3Y2VkPTzmfd8e
@@ -108,18 +92,14 @@ class UserController extends AuthController
      */
     public function update(User $user, Request $request)
     {
-        if (! Auth::user()->super) {
-            return redirect('/');
-        }
-
         $this->validate(
             $request,
             [
-            'name'           => 'required|min:3',
-            'email'          => 'required|min:10',
-            ( $request->input('password') ? ['password' => 'required|min:10'] : [] ),
-            'img_file_name'  => 'image:jpg,png,jpeg|max:5000',
-             ]
+                'name'           => 'required|min:3',
+                'email'          => 'required|min:10',
+                ( $request->input('password') ? ['password' => 'required|min:10'] : [] ),
+                'img_file_name'  => 'image:jpg,png,jpeg|max:5000',
+            ]
         );
 
         $user->name          = $request->input('name');
@@ -138,7 +118,7 @@ class UserController extends AuthController
 
         $user->save();
 
-        return redirect('/user')->with('success', 'User changed');
+        return redirect(route('user.index'))->with('success', 'User changed');
     }
 
     /**
@@ -149,16 +129,12 @@ class UserController extends AuthController
      */
     public function destroy(User $user)
     {
-        if (! Auth::user()->super) {
-            return redirect('/');
-        }
-
         // TODO: Отвызать рецепты в аноним или удалить ???
 
         Storage::delete($user->img_file_name);
 
         $user->forceDelete();
 
-        return redirect('/user')->with('success', 'User deleted');
+        return redirect(route('user.index'))->with('success', 'User deleted');
     }
 }

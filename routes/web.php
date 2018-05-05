@@ -11,26 +11,52 @@
 |
 */
 
-
-$locale  = Request::segment(1);
-
-$locales = preg_grep( '/[^.]/', scandir( resource_path() . '/lang' ) );
-
-if ( in_array( $locale, $locales ) ) {
-    App::setlocale( $locale );
+function get_locales(){
+    return preg_grep( '/[^.]/', scandir( resource_path() . '/lang' ) );
 }
-else {
-    $locale = App::getLocale();
-    Route::redirect( Request::path(), '/' . $locale . '/' . Request::path() );
-};
+
+$_locale;
+
+function get_locale(){
+
+    global $_locale;
+
+    if ($_locale) {
+        return $_locale;
+    }
+
+    $locale  = Request::segment(1);
+    $locales = get_locales();
+
+    if (in_array($locale,$locales)) {
+        App::setlocale( $locale );
+        $_locale = $locale;
+        return $locale;
+    }
+    else {
+        $locale = App::getLocale() ?? 'en';
+        redirect( '/' . $locale . '/' . Request::path() );
+    }
+}
+
+function relocalize_url($new_locale){
+    $locales_str = join( '|', get_locales() );
+    $url         = preg_replace( '/^('.$locales_str.')\/?/', '', Request::path() );
+    $url and $url = '/' .$url;
+
+    return $new_locale . $url;
+}
+
+$locale = get_locale();
+
+Route::get( 'img/{name}',  'ImgController@img'  )->name('img');
+Route::get( 'bimg/{name}', 'ImgController@bimg' )->name('bimg');
 
 Route::prefix( $locale )->group(
     function() {
 
-        Route::get( '', 'Controller@welcome' )->name( 'welcome' );
+        Route::get( '', 'HomeController@welcome' )->name( 'welcome' );
 
-        Route::get( 'img/{name}',  'ImgController@img'  );
-        Route::get( 'bimg/{name}', 'ImgController@bimg' );
 
         Auth::routes();
 
@@ -39,31 +65,26 @@ Route::prefix( $locale )->group(
         // Disable of adding a new user
         Route::any( 'register', 'HomeController@index' );
 
-        Route::get( 'ajax/welcomeReceiptModalData/{group}', 'Controller@welcomeReceiptModalData' );
+        Route::get( 'ajax/welcomeReceiptModalData/{group}', 'HomeController@welcomeReceiptModalData' );
 
         Route::get(  'password/update', 'Auth\UpdatePasswordController@showUpdateForm' )->name( 'password.update' )->middleware('auth');
         Route::post( 'password/update', 'Auth\UpdatePasswordController@update' )->middleware('auth');
 
+        foreach ( array( 'group', 'receipt', 'user' ) as $group ) {
 
-        Route::get(  'group',                     'GroupController@index'     )->name( 'group.index'    )->middleware('auth');
-        Route::get(  'group/{group}/delete',      'GroupController@destroy'   )->name( 'group.delete'   )->middleware('auth');
-        Route::get(  'group/create',              'GroupController@create'    )->name( 'group.create'   )->middleware('auth');
-        Route::post( 'group',                     'GroupController@store'     )->name( 'group.store'    )->middleware('auth');
-        Route::get(  'group/{group}/edit',        'GroupController@edit'      )->name( 'group.edit'     )->middleware('auth');
-        Route::post( 'group/{group}/update',      'GroupController@update'    )->name( 'group.update'   )->middleware('auth');
+            Route::prefix( $group )->group(
+                function() use ($group) {
+                    $controller = ucfirst($group) . 'Controller';
+                    $middleware = ['auth','authroot'];
 
-        Route::get(  'receipt',                   'ReceiptController@index'   )->name( 'receipt.index'  )->middleware('auth');
-        Route::get(  'receipt/{receipt}/delete',  'ReceiptController@destroy' )->name( 'receipt.delete' )->middleware('auth');
-        Route::get(  'receipt/create',            'ReceiptController@create'  )->name( 'receipt.create' )->middleware('auth');
-        Route::post( 'receipt',                   'ReceiptController@store'   )->name( 'receipt.store'  )->middleware('auth');
-        Route::get(  'receipt/{receipt}/edit',    'ReceiptController@edit'    )->name( 'receipt.edit'   )->middleware('auth');
-        Route::post( 'receipt/{receipt}/update',  'ReceiptController@update'  )->name( 'receipt.update' )->middleware('auth');
-
-        Route::get(  'user',                      'UserController@index'      )->name( 'user.index'     )->middleware(['auth','authroot']);
-        Route::get(  'user/{user}/delete',        'UserController@destroy'    )->name( 'user.delete'    )->middleware(['auth','authroot']);
-        Route::get(  'user/create',               'UserController@create'     )->name( 'user.create'    )->middleware(['auth','authroot']);
-        Route::post( 'user',                      'UserController@store'      )->name( 'user.store'     )->middleware(['auth','authroot']);
-        Route::get(  'user/{user}/edit',          'UserController@edit'       )->name( 'user.edit'      )->middleware(['auth','authroot']);
-        Route::post( 'user/{user}/update',        'UserController@update'     )->name( 'user.update'    )->middleware(['auth','authroot']);
+                    Route::get(  '',               $controller.'@index'   )->name( $group.'.index'  )->middleware($middleware);
+                    Route::get(  '{group}/delete', $controller.'@destroy' )->name( $group.'.delete' )->middleware($middleware);
+                    Route::get(  'create',         $controller.'@create'  )->name( $group.'.create' )->middleware($middleware);
+                    Route::post( '',               $controller.'@store'   )->name( $group.'.store'  )->middleware($middleware);
+                    Route::get(  '{group}/edit',   $controller.'@edit'    )->name( $group.'.edit'   )->middleware($middleware);
+                    Route::post( '{group}/update', $controller.'@update'  )->name( $group.'.update' )->middleware($middleware);
+                }
+            );
+        }
     }
 );

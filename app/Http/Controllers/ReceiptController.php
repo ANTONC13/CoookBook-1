@@ -17,7 +17,7 @@ class ReceiptController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Group $group)
+    public function index()
     {
         $list = Auth::user()->super
             ? Receipt::with('user')->orderBy('name')->get()

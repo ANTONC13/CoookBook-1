@@ -19,10 +19,6 @@ class GroupController extends Controller
      */
     public function index()
     {
-        if (! Auth::user()->super) {
-            return redirect( route( 'welcome' ) );
-        }
-
         $list = Group::orderBy('name')->get();
 
         return view(
@@ -42,10 +38,6 @@ class GroupController extends Controller
      */
     public function create()
     {
-        if (! Auth::user()->super) {
-            return redirect(route('welcome'));
-        }
-
         return view('groupcreate');
     }
 
@@ -57,10 +49,6 @@ class GroupController extends Controller
      */
     public function store(Request $request)
     {
-        if (! Auth::user()->super) {
-            return redirect(route('welcome'));
-        }
-
         $request->merge(array( 'description' => Purifier::clean($request->input('description'))));
 
         $this->validate(
@@ -90,10 +78,6 @@ class GroupController extends Controller
      */
     public function edit(Group $group)
     {
-        if (! Auth::user()->super) {
-            return redirect( route( 'welcome' ) );
-        }
-
         return view('groupcreate', ['group' => $group]);
     }
 
@@ -106,10 +90,6 @@ class GroupController extends Controller
      */
     public function update(Group $group, Request $request)
     {
-        if (! Auth::user()->super) {
-            return redirect(route('welcome'));
-        }
-
         $request->merge(array( 'description' => Purifier::clean($request->input('description'))));
 
         $this->validate(
@@ -142,10 +122,6 @@ class GroupController extends Controller
      */
     public function destroy(Group $group)
     {
-        if (! Auth::user()->super) {
-            return redirect( route( 'welcome' ) );
-        }
-
         Storage::delete($group->img_file_name);
 
         $group->receipts()->detach($group->id);

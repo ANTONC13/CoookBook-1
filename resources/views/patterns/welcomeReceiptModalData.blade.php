@@ -1,7 +1,7 @@
 <div id="receipt_carousel" class="carousel">
     @foreach( $receipts as $receipt )
         <a class="carousel-item modal-trigger" href="#receipt_modal_{{ $receipt->id }}">
-            <img src="{{ url( '/bimg/' . basename( $receipt->img_file_name ) ) }}"/>
+            <img src="{{ route( 'bimg', basename( $receipt->img_file_name ) ) }}"/>
             <span class="card-title">{{ $receipt->name }}<br/>/{{ $receipt->user->name }}/</span>
         </a>
     @endforeach
