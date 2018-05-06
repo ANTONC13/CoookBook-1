@@ -42,7 +42,7 @@
             'patterns.form.input',
             [
                 'field_name'        => 'name',
-                'field_description' => 'Group name',
+                'field_description' => trans('groupcreate.input_name'),
                 'required'          => 1,
                 'field_value'       => $name,
             ]
@@ -51,7 +51,7 @@
             'patterns.form.input',
             [
                 'field_name'        => 'img_file_name',
-                'field_description' => 'Img file',
+                'field_description' => trans('groupcreate.input_file'),
                 'required'          => 1,
                 'field_type'        => 'file',
             ]

@@ -8,14 +8,13 @@
     <div class="col l4 m6 s12">
     <div class="panel-body">
         @include('patterns.card', [
-            'description' => 'Home',
-            'name'        => 'Home',
+            'name'        => trans('itemlist.home'),
             'icon'        => 'home',
             'size'        => 'small',
             'hrefs'       => [
                 [
-                    'url'    => route( 'home' ),
-                    'name'   => 'Home',
+                    'url'    => route('home'),
+                    'name'   => trans('itemlist.home'),
                     'icon'   => 'home',
                 ],
             ]
@@ -25,14 +24,13 @@
     <div class="col l4 m6 s12">
     <div class="panel-body">
         @include('patterns.card', [
-            'description' => 'Create item',
-            'name'        => 'Create item',
+            'name'        => trans('itemlist.new'),
             'icon'        => 'create_new_folder',
             'size'        => 'small',
             'hrefs'       => [
                 [
                     'url'    => route( $url_item . '.create' ),
-                    'name'   => 'New',
+                    'name'   => trans('itemlist.new'),
                     'icon'   => 'create_new_folder',
                 ],
             ]
@@ -55,15 +53,13 @@
                 'hrefs'       => [
                     [
                         'url'     => route( "$url_item.edit", [ $item->id ] ),
-                        'name'    => '',
                         'icon'    => 'edit',
                     ],
                     [
                         'url'     => route( "$url_item.delete", [ $item->id ] ),
-                        'name'    => '',
                         'icon'    => 'delete',
-                        'header'  => 'Delete confirmation',
-                        'text'    => 'Are you really want to delete item "' . $item->name . '" ?',
+                        'header'  => trans('itemlist.del_confirm'),
+                        'text'    => trans('itemlist.del_confirm_text',['name'=>$item->name]),
                         'confirm' => 1,
                     ],
                 ]

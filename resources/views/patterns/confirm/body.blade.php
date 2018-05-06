@@ -15,11 +15,11 @@
     <div class="modal-footer">
         <a href="#!" class="modal-action modal-close waves-effect btn-flat ">
             <i class="material-icons red-text">clear</i>
-            Cancel
+            @lang('confirm.cancel')
         </a>
         <a href="{{ $confirm_link_href }}" class="modal-action modal-close waves-effect btn-flat ">
             <i class="material-icons green-text">check</i>
-            Ok
+            @lang('confirm.ok')
         </a>
     </div>
   </div>

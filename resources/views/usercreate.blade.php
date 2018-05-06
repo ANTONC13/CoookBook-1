@@ -50,7 +50,7 @@
             'patterns.form.input',
             [
                 'field_name'        => 'name',
-                'field_description' => 'User name',
+                'field_description' => trans('usercreate.input_name'),
                 'required'          => 1,
                 'field_value'       => $name,
             ]
@@ -59,7 +59,6 @@
             'patterns.form.input',
             [
                 'field_name'        => 'email',
-                'field_description' => 'User email',
                 'required'          => 1,
                 'field_value'       => $email,
             ]
@@ -68,7 +67,6 @@
             'patterns.form.input',
             [
                 'field_name'        => 'password',
-                'field_description' => 'User password',
                 'field_type'        => 'password',
                 'required'          => isset( $user ) ? 0 : 1,
                 'field_value'       => '',
@@ -78,7 +76,6 @@
             'patterns.form.input',
             [
                 'field_name'        => 'password_confirmation',
-                'field_description' => 'Confirm Password',
                 'field_type'        => 'password',
                 'required'          => isset( $user ) ? 0 : 1,
             ]
@@ -87,7 +84,7 @@
             'patterns.form.input',
             [
                 'field_name'        => 'img_file_name',
-                'field_description' => 'Img file',
+                'field_description' => trans('usercreate.input_img_file_name'),
                 'required'          => 1,
                 'field_type'        => 'file',
             ]
@@ -96,7 +93,6 @@
             'patterns.form.input',
             [
                 'field_name'        => 'description',
-                'field_description' => 'User description',
                 'required'          => 0,
                 'field_value'       => $description,
             ]
@@ -105,7 +101,7 @@
             'patterns.form.checkbox',
             [
                 'field_name'        => 'super',
-                'field_description' => 'User is root',
+                'field_description' => trans('usercreate.input_super'),
                 'checked'           => isset( $user ) ? $super : 0,
             ]
         )

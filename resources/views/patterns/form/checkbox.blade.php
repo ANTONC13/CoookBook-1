@@ -1,4 +1,8 @@
 <?php
+    if (!isset($field_description)) {
+        $field_description = trans('form.'.$field_name);
+    }
+
     $checked = old( $field_name ) || isset( $checked ) && $checked ? 'checked' : '';
 ?>
 

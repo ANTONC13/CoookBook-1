@@ -2,6 +2,14 @@
     $hide_context = '';
     $style        = '';
 
+    if( ! isset( $name ) ) {
+        $name = '';
+    }
+
+    if( ! isset( $description ) ) {
+        $description = $name;
+    }
+
     if( ! isset( $size ) ) {
         $size = 'medium';
     }
@@ -36,7 +44,7 @@
                 @foreach( $hrefs as $href )
                     @if( isset( $href['confirm'] ) )
                         @include('patterns.confirm.body', [
-                            'confirm_link_text'   => $href['name'  ],
+                            'confirm_link_text'   => isset( $href['name'] ) ? $href['name'] : '',
                             'confirm_link_href'   => $href['url'   ],
                             'confirm_link_icon'   => $href['icon'  ],
                             'confirm_form_header' => $href['header'],
@@ -46,7 +54,7 @@
                         <label class="label-colored">
                             <a href="{{ $href['url'] }}">
                                 <i class="material-icons">{{ $href['icon'] }}</i>
-                                {{ $href['name'] }}
+                                {{ isset( $href['name'] ) ? $href['name'] : '' }}
                             </a>
                         </label>
                     @endif

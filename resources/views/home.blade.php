@@ -3,14 +3,13 @@
 @section('update_password')
     <div class="panel-body">
         @include('patterns.card', [
-            'description' => 'Update Password',
-            'name'        => 'Update Password',
+            'name'        => trans('home.update_password'),
             'icon'        => 'vpn_key',
             'size'        => 'small',
             'hrefs'       => [
                 [
                     'url'    => route('password.update'),
-                    'name'   => 'Update Password',
+                    'name'   => trans('home.update_password'),
                     'icon'   => 'vpn_key',
                 ],
             ]
@@ -20,20 +19,19 @@
 
 @section('content')
 
-    <h1>Main page</h1>
+    <h1>@lang('home.header')</h1>
 
     <div class="row">
         <div class="col s12">
             <div class="panel-body">
                 @include('patterns.card', [
-                    'description' => 'Cookbook R/o',
-                    'name'        => 'Cookbook',
+                    'name'        => trans('home.cookbook'),
                     'icon'        => 'collections',
                     'size'        => 'small',
                     'hrefs'       => [
                         [
                             'url'    => route('welcome'),
-                            'name'   => 'Cookbook',
+                            'name'   => trans('home.cookbook'),
                             'icon'   => 'collections',
                         ],
                     ]
@@ -48,14 +46,13 @@
         <div class="col s6">
             <div class="panel-body">
                 @include('patterns.card', [
-                    'description' => 'Groups CRUD',
-                    'name'        => 'Groups CRUD',
+                    'name'        => trans('home.groups_crud'),
                     'icon'        => 'create_new_folder',
                     'size'        => 'small',
                     'hrefs'       => [
                         [
                             'url'    => route('group.index'),
-                            'name'   => 'Groups CRUD',
+                            'name'   => trans('home.groups_crud'),
                             'icon'   => 'create_new_folder',
                         ],
                     ]
@@ -65,14 +62,13 @@
         <div class="col s6">
             <div class="panel-body">
                 @include('patterns.card', [
-                    'description' => 'Receipts CRUD',
-                    'name'        => 'Receipts CRUD',
+                    'name'        => trans('home.receipts_crud'),
                     'icon'        => 'book',
                     'size'        => 'small',
                     'hrefs'       => [
                         [
                             'url'    => route('receipt.index'),
-                            'name'   => 'Receipts CRUD',
+                            'name'   => trans('home.receipts_crud'),
                             'icon'   => 'book',
                         ],
                     ]
@@ -88,14 +84,13 @@
             <div class="col s6">
                 <div class="panel-body">
                     @include('patterns.card', [
-                        'description' => 'Users CRUD',
-                        'name'        => 'Users CRUD',
+                        'name'        => trans('home.users_crud'),
                         'icon'        => 'supervisor_account',
                         'size'        => 'small',
                         'hrefs'       => [
                             [
                                 'url'    => route('user.index'),
-                                'name'   => 'Users CRUD',
+                                'name'   => trans('home.users_crud'),
                                 'icon'   => 'supervisor_account',
                             ],
                         ]
