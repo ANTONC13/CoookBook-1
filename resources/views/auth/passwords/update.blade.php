@@ -31,7 +31,7 @@
                 'required'          => 1,
             ]
         )
-        @include('patterns.form.back')
+        @include('patterns.form.home')
         @include('patterns.form.submit')
     </form>
 </div>

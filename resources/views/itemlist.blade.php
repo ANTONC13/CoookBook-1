@@ -2,7 +2,7 @@
 
 @section('content')
 
-<h1>{{ $name }}</h1>
+<h1>@lang('itemlist.'.$name)</h1>
 
 <div class="row">
     <div class="col l4 m6 s12">

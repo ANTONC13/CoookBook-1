@@ -15,5 +15,6 @@ return [
 
     'input_name'  => 'Name',
     'input_file'  => 'Image',
+    'form_name'   => 'Add a new receipt group',
 
 ];

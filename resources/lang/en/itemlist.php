@@ -17,5 +17,8 @@ return [
     'new'              => 'Add',
     'del_confirm'      => 'Deletion confirmation',
     'del_confirm_text' => 'Are you really want to remove ":name" ?',
+    'user'             => 'Users',
+    'receipt'          => 'Receipts',
+    'group'            => 'Receipt groups',
 
 ];

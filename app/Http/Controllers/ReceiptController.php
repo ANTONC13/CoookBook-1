@@ -27,7 +27,7 @@ class ReceiptController extends Controller
             'itemlist',
             [
                 'list'     => $list,
-                'name'     => 'Receipts',
+                'name'     => 'receipt',
                 'url_item' => 'receipt',
             ]
         );

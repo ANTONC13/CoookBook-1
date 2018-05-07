@@ -16,5 +16,6 @@ return [
     'input_name'                  => 'User name',
     'input_img_file_name'         => 'Img file',
     'input_super'                 => 'User is root',
+    'form_name'                   => 'Add a new user',
 
 ];

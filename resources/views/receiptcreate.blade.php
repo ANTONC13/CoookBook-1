@@ -21,7 +21,7 @@
     if( ! $description ) $description = old( 'description' );
 ?>
 
-@include('patterns.form.header', [ 'form_icon' => 'cached' ] )
+@include( 'patterns.form.header', [ 'form_name' => 'receiptcreate.form_name' ] )
 
 <div class="row">
     <form class="col valign s10 offset-s1" enctype="multipart/form-data" method="POST" action="{{ $action }}">
@@ -70,7 +70,7 @@
         @endforeach
         </div>
         <textarea id="article-ckeditor" name="description" required >{{ $description }}</textarea><br/>
-        @include( 'patterns.form.back' )
+        @include( 'patterns.form.home', [ 'return_to' => route('receipt.index') ] )
         @include( 'patterns.form.submit' )
     </form>
 </div>

@@ -25,7 +25,7 @@ class UserController extends Controller
             'itemlist',
             [
                 'list'            => $list,
-                'name'            => 'User',
+                'name'            => 'user',
                 'url_item'        => 'user',
                 'img_placeholder' => 'person',
             ]

@@ -23,5 +23,6 @@ return [
     'user_name'             => 'Им\'я користувача',
     'forgot_password'       => 'Забув пароль',
     'description'           => 'Опис',
+    'back'                  => 'Додому',
 
 ];

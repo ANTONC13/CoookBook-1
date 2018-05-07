@@ -23,5 +23,6 @@ return [
     'user_name'             => 'User name',
     'forgot_password'       => 'Forgot your passwrod',
     'description'           => 'Description',
+    'home'                  => 'Home',
 
 ];

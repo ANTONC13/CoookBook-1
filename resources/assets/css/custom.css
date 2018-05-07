@@ -1,7 +1,7 @@
 body {
   background-color: #fff8e1; }
 
-.label-colored, .i-colored, .input-field label, .container a {
+h1, h2, h3, h4, .label-colored, .i-colored, .input-field label, .container a {
   color: orange !important;
   /* avoid of teal color during selection */ }
 

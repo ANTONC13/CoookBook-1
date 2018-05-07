@@ -25,7 +25,7 @@ class GroupController extends Controller
             'itemlist',
             [
                 'list'     => $list,
-                'name'     => 'Group',
+                'name'     => 'group',
                 'url_item' => 'group',
             ]
         );

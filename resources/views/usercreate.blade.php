@@ -30,7 +30,7 @@
 ?>
 
 
-@include( 'patterns.form.header', [ 'form_icon' => 'cached' ] )
+@include( 'patterns.form.header', [ 'form_name' => 'usercreate.form_name' ] )
 
 <div class="row">
     <form class="col valign s10 offset-s1" enctype="multipart/form-data" method="POST" action="{{ $action }}">
@@ -105,7 +105,7 @@
                 'checked'           => isset( $user ) ? $super : 0,
             ]
         )
-        @include( 'patterns.form.back' )
+        @include( 'patterns.form.home', [ 'return_to' => route('user.index') ] )
         @include( 'patterns.form.submit' )
     </form>
 </div>
