@@ -15,27 +15,22 @@ function get_locales(){
     return preg_grep( '/[^.]/', scandir( resource_path() . '/lang' ) );
 }
 
-$_locale;
-
 function get_locale(){
-
-    global $_locale;
-
-    if ($_locale) {
-        return $_locale;
-    }
 
     $locale  = Request::segment(1);
     $locales = get_locales();
 
     if (in_array($locale,$locales)) {
         App::setlocale( $locale );
-        $_locale = $locale;
         return $locale;
     }
     else {
-        $locale = App::getLocale() ?? 'en';
-        redirect( '/' . $locale . '/' . Request::path() );
+        $locale = App::getLocale();
+        $path   = Request::path();
+        $new_path = '/' . $locale . ( $path && $path != '/' ? '/' . $path : '/home' );
+
+        Route::redirect( $path, $new_path, 301 );
+        return '!';
     }
 }
 
@@ -47,16 +42,16 @@ function relocalize_url($new_locale){
     return $new_locale . $url;
 }
 
-$locale = get_locale();
 
 Route::get( 'img/{name}',  'ImgController@img'  )->name('img');
 Route::get( 'bimg/{name}', 'ImgController@bimg' )->name('bimg');
 
-Route::prefix( $locale )->group(
+$locale = get_locale();
+
+Route::prefix($locale)->group(
     function() {
 
         Route::get( '', 'HomeController@welcome' )->name( 'welcome' );
-
 
         Auth::routes();
 
